@@ -1,0 +1,23 @@
+---
+- name: create VM from template
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ validate_certs }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    cluster: "{{ vcenter_cluster }}"
+    datastore: "{{ vcenter_datastore }}"
+    template: "{{ template_name }}"
+    name: "{{ vm_name }}"
+    state: poweredon
+    hardware:
+      memory_mb: "{{ vm_memory }}"
+      num_cpus: "{{ vm_cpu }}"
+    networks:
+      - name: "{{ vm_network_name }}"
+        type: static
+        ip: "{{ vm_ip_address }}"
+        netmask: "{{ vm_netmask }}"
+        gateway: "{{ vm_gateway }}"
+    wait_for_ip_address: yes

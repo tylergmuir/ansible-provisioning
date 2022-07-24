@@ -1,0 +1,17 @@
+---
+- name: remove host keys
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/ssh/ssh_host_ecdsa_key
+    - /etc/ssh/ssh_host_ecdsa_key.pub
+    - /etc/ssh/ssh_host_ed25519_key
+    - /etc/ssh/ssh_host_ed25519_key.pub
+    - /etc/ssh/ssh_host_rsa_key
+    - /etc/ssh/ssh_host_rsa_key.pub
+
+- name: truncate machine id
+  community.general.filesize:
+    path: /etc/machine-id
+    size: 0
