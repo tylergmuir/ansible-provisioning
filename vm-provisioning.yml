@@ -30,12 +30,14 @@
 
     - name: create host record
       ansible.builtin.add_host:
-        name: "{{ vm_name }}"
+        name: "{{ vm_name }}.{{ vm_domain_name }}"
         groups: new_vm
 
----
+
 - hosts: new_vm
   become: yes
+  vars_files:
+    - vars.yml
 
   tasks:
     - name: customize vm
@@ -46,3 +48,5 @@
 
     - name: restart vm
       ansible.builtin.reboot:
+        reboot_timeout: 1
+      ignore_errors: True

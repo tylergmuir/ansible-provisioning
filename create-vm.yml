@@ -9,8 +9,14 @@
     cluster: "{{ vcenter_cluster }}"
     datastore: "{{ vcenter_datastore }}"
     template: "{{ template_name }}"
+    folder: "{{ vcenter_datacenter }}/vm"
     name: "{{ vm_name }}"
     state: poweredon
+    customization:
+      dns_servers: "{{ vm_dns_server }}"
+      dns_suffix: "{{ vm_domain_name }}"
+      domain: "{{ vm_domain_name }}"
+      hostname: "{{ vm_name }}"
     hardware:
       memory_mb: "{{ vm_memory }}"
       num_cpus: "{{ vm_cpu }}"

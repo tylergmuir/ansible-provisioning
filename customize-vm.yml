@@ -1,22 +1,4 @@
 ---
-- name: set the domain name
-  ansible.builtin.hostname:
-    name: "{{ vm_name }}.{{ vm_domain_name }}"
-    use: systemd
-
-- name: set dns servers
-  community.general.nmcli:
-    conn_name: ens192
-    type: ethernet
-    dns4: "{{ vm_dns_server }}"
-    dns4_search: "{{ vm_domain_name }}"
-    state: present
-  register: dns_settings
-
-- name: apply dns changes
-  command: nmcli connection up ens192
-  when: dns_settings.changed
-
 - name: upgrade packages
   ansible.builtin.dnf:
     name: "*"
