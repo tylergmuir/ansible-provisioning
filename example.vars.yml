@@ -1,11 +1,11 @@
 ---
 vcenter_hostname: vcenter.lab.internal
-vcenter_username: ansible-user@sso-vsphere.local
+vcenter_username: ansible-user@vsphere.local
 validate_certs: yes
 vcenter_datacenter: datacenter
 vcenter_cluster: cluster
 vcenter_datastore: datastore_cluster
-template: template
+template_name: template
 vm_network_name: "VM Network"
 vm_netmask: 255.255.255.0
 vm_gateway: 10.0.0.1
