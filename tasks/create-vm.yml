@@ -1,5 +1,5 @@
 ---
-- name: create VM from template
+- name: Create VM from template
   community.vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -26,4 +26,4 @@
         ip: "{{ vm_ip_address }}"
         netmask: "{{ vm_netmask }}"
         gateway: "{{ vm_gateway }}"
-    wait_for_ip_address: yes
+    wait_for_ip_address: true

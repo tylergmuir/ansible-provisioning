@@ -1,10 +1,11 @@
 ---
-- name: upgrade packages
+- name: Upgrade packages
   ansible.builtin.dnf:
     name: "*"
     state: latest
+    update_only: true
 
-- name: set chrony config
+- name: Set chrony config
   ansible.builtin.copy:
     src: chrony.conf
     dest: /etc/chrony.conf

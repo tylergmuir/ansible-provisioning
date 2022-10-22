@@ -1,5 +1,5 @@
 ---
-- name: remove host keys
+- name: Remove host keys
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
@@ -11,7 +11,8 @@
     - /etc/ssh/ssh_host_rsa_key
     - /etc/ssh/ssh_host_rsa_key.pub
 
-- name: clear machine id
+- name: Clear machine id
   ansible.builtin.copy:
     content: ''
     dest: /etc/machine-id
+    mode: 0444

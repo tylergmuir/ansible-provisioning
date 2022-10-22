@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Build new host for VM
+  hosts: localhost
   become: false
   vars_prompt:
     - name: vcenter_password
@@ -7,46 +8,45 @@
 
     - name: vm_name
       prompt: enter name of vm
-      private: no
+      private: false
 
     - name: vm_memory
       prompt: enter vm memory allocation
-      private: no
+      private: false
 
     - name: vm_cpu
       prompt: enter vm cpu allocation
-      private: no
+      private: false
 
     - name: vm_ip_address
       prompt: enter vm ip address
-      private: no
+      private: false
 
   vars_files:
     - vars.yml
-  
   tasks:
-    - name: create vm
-      ansible.builtin.include_tasks: create-vm.yml
+    - name: Create vm
+      ansible.builtin.include_tasks: tasks/create-vm.yml
 
-    - name: create host record
+    - name: Create host record
       ansible.builtin.add_host:
         name: "{{ vm_name }}.{{ vm_domain_name }}"
         groups: new_vm
 
-
-- hosts: new_vm
-  become: yes
+- name: Configure new VM
+  hosts: new_vm
+  become: true
   vars_files:
     - vars.yml
 
   tasks:
-    - name: customize vm
-      ansible.builtin.include_tasks: customize-vm.yml
-    
-    - name: generalize vm
-      ansible.builtin.include_tasks: generalize-vm.yml
+    - name: Customize vm
+      ansible.builtin.include_tasks: tasks/customize-vm.yml
 
-    - name: restart vm
+    - name: Generalize vm
+      ansible.builtin.include_tasks: tasks/generalize-vm.yml
+
+    - name: Restart vm
       ansible.builtin.reboot:
         reboot_timeout: 1
-      ignore_errors: True
+      failed_when: false
