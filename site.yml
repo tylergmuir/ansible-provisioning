@@ -1,6 +1,7 @@
 ---
 - name: Build new host for VM
   hosts: localhost
+  connection: local
   become: false
   tasks:
     - name: Create vm
