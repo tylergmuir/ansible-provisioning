@@ -15,9 +15,6 @@
 - name: Configure new VM
   hosts: new_vm
   become: true
-  vars_files:
-    - vars.yml
-
   tasks:
     - name: Customize vm
       ansible.builtin.include_tasks: tasks/customize-vm.yml
