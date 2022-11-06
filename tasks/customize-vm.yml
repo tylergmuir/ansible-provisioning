@@ -1,7 +1,6 @@
 ---
 - name: Attach RHEL subscription
   community.general.redhat_subscription:
-    auto_attach: true
     activationkey: rhel-ak
 
 - name: Upgrade packages
