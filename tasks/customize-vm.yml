@@ -1,4 +1,8 @@
 ---
+- name: Attach RHEL subscription
+  community.general.redhat_subscription:
+    auto_attach: true
+
 - name: Upgrade packages
   ansible.builtin.dnf:
     name: "*"
