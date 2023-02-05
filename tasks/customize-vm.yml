@@ -1,4 +1,9 @@
 ---
+- name: Attach RHEL subscription
+  community.general.redhat_subscription:
+    activationkey: "{{ activation_key }}"
+    org_id: "{{ org_id }}"
+
 - name: Upgrade packages
   ansible.builtin.dnf:
     name: "*"

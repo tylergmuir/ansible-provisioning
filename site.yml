@@ -1,29 +1,8 @@
 ---
 - name: Build new host for VM
   hosts: localhost
+  connection: local
   become: false
-  vars_prompt:
-    - name: vcenter_password
-      prompt: enter vcenter password
-
-    - name: vm_name
-      prompt: enter name of vm
-      private: false
-
-    - name: vm_memory
-      prompt: enter vm memory allocation
-      private: false
-
-    - name: vm_cpu
-      prompt: enter vm cpu allocation
-      private: false
-
-    - name: vm_ip_address
-      prompt: enter vm ip address
-      private: false
-
-  vars_files:
-    - vars.yml
   tasks:
     - name: Create vm
       ansible.builtin.include_tasks: tasks/create-vm.yml
@@ -36,9 +15,6 @@
 - name: Configure new VM
   hosts: new_vm
   become: true
-  vars_files:
-    - vars.yml
-
   tasks:
     - name: Customize vm
       ansible.builtin.include_tasks: tasks/customize-vm.yml
@@ -48,5 +24,3 @@
 
     - name: Restart vm
       ansible.builtin.reboot:
-        reboot_timeout: 1
-      failed_when: false
